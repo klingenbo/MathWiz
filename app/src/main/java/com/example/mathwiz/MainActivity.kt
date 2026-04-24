@@ -1,0 +1,50 @@
+package com.example.mathwiz
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.mathwiz.ui.theme.MathWizTheme
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            MathWizTheme {
+                val navController = rememberNavController()
+
+                NavHost(
+                    navController = navController,
+                    startDestination = "start"
+                ) {
+
+                    composable("start") {
+                        StartScreen { config ->
+                            val tableArg = config.table ?: "all"
+                            navController.navigate("game/$tableArg")
+                        }
+                    }
+
+                    composable("game/{table}") { backStackEntry ->
+                        val tableArg = backStackEntry.arguments?.getString("table")
+                        val table = if (tableArg == "all") null else tableArg
+
+                        val viewModel = remember { GameViewModel() }
+
+                        LaunchedEffect(table) {
+                            viewModel.setConfig(GameConfig(table))
+                        }
+
+                        GameScreen(viewModel, table?.toIntOrNull())
+                    }
+                }
+            }
+        }
+    }
+}
