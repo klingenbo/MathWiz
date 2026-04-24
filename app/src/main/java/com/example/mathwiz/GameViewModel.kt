@@ -24,6 +24,7 @@ class GameViewModel : ViewModel() {
         table = config.table
         _question.value = generateQuestion()
     }
+
     private val _question = MutableStateFlow(generateQuestion())
     val question = _question
 

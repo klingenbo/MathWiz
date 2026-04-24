@@ -16,17 +16,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -89,11 +82,11 @@ fun StartScreen(onStart: (GameConfig) -> Unit) {
             val table = null
 
             AllTablesButton(
-                        color = color,
-                        onClick = { onStart(GameConfig(table.toString())) }
-                    )
-            }
+                color = color,
+                onClick = { onStart(GameConfig(table.toString())) }
+            )
         }
+    }
 }
 
 @Composable
@@ -132,17 +125,17 @@ fun TableButton(
 
 fun getColorForTable(table: Int?): Color {
     return when (table) {
-        1 -> Color(0xFFEF9A9A) // röd
-        2 -> Color(0xFF90CAF9) // blå
-        3 -> Color(0xFFA5D6A7) // grön
-        4 -> Color(0xFFFFCC80) // orange
-        5 -> Color(0xFFCE93D8) // lila
-        6 -> Color(0xFF80CBC4) // turkos
-        7 -> Color(0xFFFFAB91) // korall
-        8 -> Color(0xFFB39DDB) // lavendel
-        9 -> Color(0xFFFFF59D) // gul
-        10 -> Color(0xFFB0BEC5) // gråblå
-        else -> Color(0xFFFFB74D) // alla tabeller
+        1 -> Color(0xFFEF9A9A)
+        2 -> Color(0xFF90CAF9)
+        3 -> Color(0xFFA5D6A7)
+        4 -> Color(0xFFFFCC80)
+        5 -> Color(0xFFCE93D8)
+        6 -> Color(0xFF80CBC4)
+        7 -> Color(0xFFFFAB91)
+        8 -> Color(0xFFB39DDB)
+        9 -> Color(0xFFFFF59D)
+        10 -> Color(0xFFB0BEC5)
+        else -> Color(0xFFFFB74D)
     }
 }
 

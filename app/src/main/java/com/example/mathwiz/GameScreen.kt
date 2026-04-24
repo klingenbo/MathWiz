@@ -30,12 +30,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.delay
 
 @Composable
 fun GameScreen(
     viewModel: GameViewModel,
-    table: Int?) {
+    table: Int?
+) {
 
     val question by viewModel.question.collectAsState()
     val score by viewModel.score.collectAsState()
@@ -55,14 +55,14 @@ fun GameScreen(
     ) {
 
         // 🟢 Score uppe
-       /* Text(
-            text = "Poäng: $score",
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.CenterHorizontally)
-                .padding(top = 50.dp, start = 20.dp),
-            style = MaterialTheme.typography.titleLarge
-        ) */
+        /* Text(
+             text = "Poäng: $score",
+             modifier = Modifier
+                 .fillMaxWidth()
+                 .align(Alignment.CenterHorizontally)
+                 .padding(top = 50.dp, start = 20.dp),
+             style = MaterialTheme.typography.titleLarge
+         ) */
 
         // 🟢 spelinnehåll
         Box(modifier = Modifier.weight(1f)) {
@@ -86,17 +86,18 @@ fun GameScreen(
         LazyColumn {
             items(question.options) { option ->
 
-                    AnswerButton(
-                        text = option.toString(),
-                        isCorrect = viewModel.isCorrect(
-                            option = option,
-                            selectedAnswer = selectedAnswer),
-                        baseColor = color,
-                        onClick = {
-                            selectedAnswer = option
-                            viewModel.onAnswerSelected(option)
-                        }
-                    )
+                AnswerButton(
+                    text = option.toString(),
+                    isCorrect = viewModel.isCorrect(
+                        option = option,
+                        selectedAnswer = selectedAnswer
+                    ),
+                    baseColor = color,
+                    onClick = {
+                        selectedAnswer = option
+                        viewModel.onAnswerSelected(option)
+                    }
+                )
             }
         }
 
@@ -121,15 +122,15 @@ fun AnswerButton(
     )
 
     Box(
-            modifier = Modifier
-                .fillMaxSize()
-                //.background(bgColor.copy(alpha = 0.2f))
-                .padding(vertical = 8.dp)
-                .shadow(4.dp, RoundedCornerShape(16.dp))
-                .clip(RoundedCornerShape(16.dp))
-                .background(bgColor)
-                .clickable { onClick() }
-                .padding(24.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            //.background(bgColor.copy(alpha = 0.2f))
+            .padding(vertical = 8.dp)
+            .shadow(4.dp, RoundedCornerShape(16.dp))
+            .clip(RoundedCornerShape(16.dp))
+            .background(bgColor)
+            .clickable { onClick() }
+            .padding(24.dp),
         contentAlignment = Alignment.Center
     ) {
         Text(
