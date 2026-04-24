@@ -32,7 +32,7 @@ class GameViewModel : ViewModel() {
     val score = _score
 
     val progress = _score.map { score ->
-        (score % 5) / 5f
+        (score % 10) / 10f
     }.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5000),
