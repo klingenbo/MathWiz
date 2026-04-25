@@ -59,6 +59,8 @@ fun GameScreen(
         selectedAnswer = null
     }
 
+    // Fix bounce
+    // Create green progress between them
     LaunchedEffect(progress) {
         if (progress >= 0.99f) {
             bounce = true
@@ -97,13 +99,26 @@ fun GameScreen(
                     baseColor = color,
                     onClick = {
                         selectedAnswer = option
-                        viewModel.onAnswerSelected(option)
+                        if (score == 10) {
+                            // launch completed screen
+                        } else {
+                            viewModel.onAnswerSelected(option)
+                        }
                     }
                 )
             }
         }
 
         TurtleEating(progress = progress, bounce = bounce)
+
+        Text(
+            text = "$score av 10",
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(0.dp, 10.dp, 0.dp, 60.dp),
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.headlineMedium,
+        )
     }
 }
 
@@ -163,7 +178,7 @@ fun TurtleEating(progress: Float, bounce: Boolean) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(70.dp, 20.dp, 30.dp, 80.dp),
+            .padding(70.dp, 20.dp, 30.dp, 0.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
 
