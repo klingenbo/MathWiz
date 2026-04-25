@@ -26,8 +26,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun StartScreen(onStart: (GameConfig) -> Unit) {
@@ -98,9 +101,11 @@ fun TableButton(
     var pressed by remember { mutableStateOf(false) }
 
     val scale by animateFloatAsState(
-        targetValue = if (pressed) 0.95f else 1f,
+        targetValue = if (pressed) 0.85f else 1f,
         label = ""
     )
+
+    val scope = rememberCoroutineScope()
 
     Box(
         modifier = Modifier
@@ -108,10 +113,18 @@ fun TableButton(
             .shadow(6.dp, RoundedCornerShape(16.dp))
             .clip(RoundedCornerShape(16.dp))
             .background(color)
+            .graphicsLayer {
+                scaleX = scale
+                scaleY = scale
+            }
             .clickable {
-                pressed = true
-                onClick()
-                pressed = false
+                scope.launch {
+                    pressed = true
+                    delay(100)
+                    pressed = false
+                    delay(80)
+                    onClick()
+                }
             }
             .padding(24.dp),
         contentAlignment = Alignment.Center
@@ -147,9 +160,11 @@ fun AllTablesButton(
     var pressed by remember { mutableStateOf(false) }
 
     val scale by animateFloatAsState(
-        targetValue = if (pressed) 0.95f else 1f,
+        targetValue = if (pressed) 0.85f else 1f,
         label = ""
     )
+
+    val scope = rememberCoroutineScope()
 
     Box(
         modifier = Modifier
@@ -157,10 +172,19 @@ fun AllTablesButton(
             .shadow(6.dp, RoundedCornerShape(16.dp))
             .clip(RoundedCornerShape(16.dp))
             .background(color)
+            .graphicsLayer {
+                scaleX = scale
+                scaleY = scale
+            }
             .clickable {
-                pressed = true
-                onClick()
-                pressed = false
+                scope.launch {
+                    pressed = true
+                    delay(100)
+                    pressed = false
+                    delay(80)
+                    onClick()
+                }
+
             }
             .padding(24.dp),
         contentAlignment = Alignment.Center
