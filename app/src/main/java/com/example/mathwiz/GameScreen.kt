@@ -3,6 +3,7 @@ package com.example.mathwiz
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -35,6 +36,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
@@ -71,7 +73,7 @@ fun GameScreen(
             .padding(horizontal = 30.dp, vertical = 20.dp),
         verticalArrangement = Arrangement.Center
     ) {
-        Spacer(modifier = Modifier.height(90.dp))
+        Spacer(modifier = Modifier.height(100.dp))
 
         Text(
             modifier = Modifier.fillMaxWidth(),
@@ -144,10 +146,10 @@ fun TurtleEating(progress: Float, bounce: Boolean) {
 
     val animatedProgress by animateFloatAsState(progress, label = "")
 
-    val startOffset = 120.dp
-    val endOffset = 0.dp
+    val startOffset = 90.dp
+    val endOffset = (-50).dp
 
-    // turtle touched leaf with smooth transition
+    // turtle touches leaf with smooth transition
     val offsetX by animateDpAsState(
         targetValue = lerp(startOffset, endOffset, animatedProgress),
         label = ""
@@ -161,16 +163,20 @@ fun TurtleEating(progress: Float, bounce: Boolean) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(50.dp),
+            .padding(70.dp, 20.dp, 30.dp, 80.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
 
         Box(
             modifier = Modifier
-                .width(60.dp)
-                .height(40.dp)
+                .width(80.dp)
+                .height(60.dp)
         ) {
-            Text("🌿", fontSize = MaterialTheme.typography.displaySmall.fontSize)
+            Image(
+                // Attribution is required for commercial use
+                painter = painterResource(R.drawable.leaf),
+                contentDescription = null
+            )
         }
 
         Text(
