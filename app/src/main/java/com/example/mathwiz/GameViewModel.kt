@@ -42,6 +42,9 @@ class GameViewModel : ViewModel() {
     private val _isCompleted = MutableStateFlow(false)
     val isCompleted = _isCompleted
 
+    private val _questionsAnswered = MutableStateFlow(0)
+    val questionsAnswered = _questionsAnswered
+
 
     fun onAnswerSelected(answer: Int) {
         val correct = _question.value.correctAnswer
@@ -49,6 +52,8 @@ class GameViewModel : ViewModel() {
         if (answer == correct) {
             _score.value += 1
         }
+
+        questionsAnswered.value += 1
 
         viewModelScope.launch {
             if (_score.value == 10) {
