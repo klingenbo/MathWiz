@@ -48,9 +48,13 @@ class GameViewModel : ViewModel() {
         }
 
         viewModelScope.launch {
-            delay(1000)
+            if (_score.value == 10) {
+                // launch completed screen
+            } else {
+                delay(1000)
 
-            _question.value = generateQuestion()
+                _question.value = generateQuestion()
+            }
         }
     }
 

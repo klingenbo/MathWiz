@@ -99,17 +99,19 @@ fun GameScreen(
                     baseColor = color,
                     onClick = {
                         selectedAnswer = option
-                        if (score == 10) {
-                            // launch completed screen
-                        } else {
-                            viewModel.onAnswerSelected(option)
-                        }
+                        viewModel.onAnswerSelected(
+                            answer = option,
+                        )
                     }
                 )
             }
         }
 
-        TurtleEating(progress = progress, bounce = bounce)
+        TurtleEating(
+            progress = progress,
+            bounce = bounce,
+            score = score
+        )
 
         Text(
             text = "$score av 10",
@@ -157,16 +159,24 @@ fun AnswerButton(
 }
 
 @Composable
-fun TurtleEating(progress: Float, bounce: Boolean) {
+fun TurtleEating(
+    progress: Float,
+    bounce: Boolean,
+    score: Int
+) {
 
     val animatedProgress by animateFloatAsState(progress, label = "")
 
     val startOffset = 90.dp
     val endOffset = (-50).dp
+    val isFinished = score >= 10
 
-    // turtle touches leaf with smooth transition
     val offsetX by animateDpAsState(
-        targetValue = lerp(startOffset, endOffset, animatedProgress),
+        targetValue = if (isFinished) {
+            endOffset
+        } else {
+            lerp(startOffset, endOffset, animatedProgress)
+        },
         label = ""
     )
 
