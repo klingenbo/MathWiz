@@ -39,6 +39,9 @@ class GameViewModel : ViewModel() {
         0f
     )
 
+    private val _isCompleted = MutableStateFlow(false)
+    val isCompleted = _isCompleted
+
 
     fun onAnswerSelected(answer: Int) {
         val correct = _question.value.correctAnswer
@@ -49,7 +52,8 @@ class GameViewModel : ViewModel() {
 
         viewModelScope.launch {
             if (_score.value == 10) {
-                // launch completed screen
+                isCompleted.value = true
+                return@launch
             } else {
                 delay(1000)
 

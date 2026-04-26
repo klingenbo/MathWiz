@@ -45,11 +45,13 @@ import kotlinx.coroutines.delay
 @Composable
 fun GameScreen(
     viewModel: GameViewModel,
-    table: Int?
+    table: Int?,
+    onGameComplete: () -> Unit
 ) {
     val question by viewModel.question.collectAsState()
     val score by viewModel.score.collectAsState()
     val progress by viewModel.progress.collectAsState()
+    val isCompleted by viewModel.isCompleted.collectAsState()
     var selectedAnswer by remember { mutableStateOf<Int?>(null) }
     var bounce by remember { mutableStateOf(false) }
 
@@ -60,12 +62,17 @@ fun GameScreen(
     }
 
     // Fix bounce
-    // Create green progress between them
     LaunchedEffect(progress) {
         if (progress >= 0.99f) {
             bounce = true
             delay(150)
             bounce = false
+        }
+    }
+
+    LaunchedEffect(isCompleted) {
+        if (isCompleted) {
+            onGameComplete()
         }
     }
 

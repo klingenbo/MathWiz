@@ -6,6 +6,8 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.WindowRecomposerPolicy
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -41,7 +43,18 @@ class MainActivity : ComponentActivity() {
                             viewModel.setConfig(GameConfig(table))
                         }
 
-                        GameScreen(viewModel, table?.toIntOrNull())
+                        GameScreen(
+                            viewModel,
+                            table?.toIntOrNull(),
+                            onGameComplete = {
+                                navController.navigate(
+                                    "complete"
+                                )
+                            })
+                    }
+
+                    composable("complete") {
+                        CompleteScreen()
                     }
                 }
             }
