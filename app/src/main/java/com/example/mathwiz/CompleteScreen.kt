@@ -7,11 +7,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun CompleteScreen() {
+fun CompleteScreen(score: Int, answered: Int) {
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -20,7 +23,17 @@ fun CompleteScreen() {
     ) {
         Text(
             text = "Session complete",
-            style = MaterialTheme.typography.titleLarge
+            style = MaterialTheme.typography.displayLarge
+        )
+
+        Text(
+            text = "Du fick $score rätt",
+            style = MaterialTheme.typography.displayMedium
+        )
+
+        Text(
+            text = "Du svarade på $answered tal",
+            style = MaterialTheme.typography.displayMedium
         )
     }
 }

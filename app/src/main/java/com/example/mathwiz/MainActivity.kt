@@ -5,6 +5,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.WindowRecomposerPolicy
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -39,6 +41,9 @@ class MainActivity : ComponentActivity() {
 
                         val viewModel = remember { GameViewModel() }
 
+                        val score by viewModel.score.collectAsState()
+                        val answered by viewModel.questionsAnswered.collectAsState()
+
                         LaunchedEffect(table) {
                             viewModel.setConfig(GameConfig(table))
                         }
@@ -48,13 +53,16 @@ class MainActivity : ComponentActivity() {
                             table?.toIntOrNull(),
                             onGameComplete = {
                                 navController.navigate(
-                                    "complete"
+                                    "complete/$score/$answered"
                                 )
                             })
                     }
 
-                    composable("complete") {
-                        CompleteScreen()
+                    composable("complete/{score}/{answered}") { backStackEntry ->
+                        val score = backStackEntry.arguments?.getString("score")?.toInt() ?: 0
+                        val answered = backStackEntry.arguments?.getString("answered")?.toInt() ?: 0
+
+                        CompleteScreen(score, answered)
                     }
                 }
             }
