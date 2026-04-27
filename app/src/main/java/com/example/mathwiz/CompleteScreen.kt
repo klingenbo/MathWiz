@@ -29,7 +29,10 @@ import androidx.compose.ui.unit.dp
 fun CompleteScreen(
     score: Int,
     answered: Int,
-    ) {
+    table: Int?,
+    openStart: () -> Unit,
+    playAgain: () -> Unit
+) {
 
     Column(
         modifier = Modifier
@@ -47,12 +50,13 @@ fun CompleteScreen(
 
         Spacer(modifier = Modifier.height(50.dp))
 
-        Box(modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp)
-            .background(Color(0xFFCE93D8))
-            .clip(RoundedCornerShape(16.dp))
-            .padding(24.dp),
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp)
+                .background(Color(0xFFCE93D8))
+                .clip(RoundedCornerShape(16.dp))
+                .padding(24.dp),
             contentAlignment = Alignment.Center
         ) {
 
@@ -77,39 +81,39 @@ fun CompleteScreen(
 
         Spacer(modifier = Modifier.height(40.dp))
 
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 8.dp)
-                    .background(Color(0xFF90CAF9))
-                    .shadow(4.dp, RoundedCornerShape(16.dp))
-                    .clip(RoundedCornerShape(16.dp))
-                    .clickable { }
-                    .padding(24.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = "Gör igen",
-                    style = MaterialTheme.typography.headlineMedium
-                )
-            }
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp)
+                .background(Color(0xFF90CAF9))
+                .shadow(4.dp, RoundedCornerShape(16.dp))
+                .clip(RoundedCornerShape(16.dp))
+                .clickable { playAgain() }
+                .padding(24.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = "Gör igen",
+                style = MaterialTheme.typography.headlineMedium
+            )
+        }
 
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 8.dp)
-                    .background(Color(0xFFA5D6A7))
-                    .shadow(4.dp, RoundedCornerShape(16.dp))
-                    .clip(RoundedCornerShape(16.dp))
-                    .clickable {  }
-                    .padding(24.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = "Till start",
-                    style = MaterialTheme.typography.headlineMedium
-                )
-            }
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp)
+                .background(Color(0xFFA5D6A7))
+                .shadow(4.dp, RoundedCornerShape(16.dp))
+                .clip(RoundedCornerShape(16.dp))
+                .clickable { openStart() }
+                .padding(24.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = "Till start",
+                style = MaterialTheme.typography.headlineMedium
+            )
+        }
 
     }
 }

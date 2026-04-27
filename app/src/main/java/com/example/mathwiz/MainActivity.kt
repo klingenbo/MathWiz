@@ -39,7 +39,7 @@ class MainActivity : ComponentActivity() {
                         val tableArg = backStackEntry.arguments?.getString("table")
                         val table = if (tableArg == "all") null else tableArg
 
-                        val viewModel = remember { GameViewModel() }
+                        val viewModel: GameViewModel = viewModel()
 
                         val score by viewModel.score.collectAsState()
                         val answered by viewModel.questionsAnswered.collectAsState()
@@ -53,16 +53,30 @@ class MainActivity : ComponentActivity() {
                             table?.toIntOrNull(),
                             onGameComplete = {
                                 navController.navigate(
-                                    "complete/$score/$answered"
+                                    "complete/$score/$answered/$tableArg"
                                 )
                             })
                     }
 
-                    composable("complete/{score}/{answered}") { backStackEntry ->
+                    composable("complete/{score}/{answered}/{table}") { backStackEntry ->
+                        val table = backStackEntry.arguments?.getString("table")
                         val score = backStackEntry.arguments?.getString("score")?.toInt() ?: 0
                         val answered = backStackEntry.arguments?.getString("answered")?.toInt() ?: 0
 
-                        CompleteScreen(score, answered)
+                        CompleteScreen(
+                            score = score,
+                            answered = answered,
+                            table = table?.toIntOrNull(),
+                            openStart = {
+                                navController.navigate("start")
+                            },
+                            playAgain = {
+                                navController.navigate("game/$table") {
+                                    popUpTo("complete/{score}/{answered}/{table}") {
+                                        inclusive = true
+                                    }
+                                }
+                            })
                     }
                 }
             }
