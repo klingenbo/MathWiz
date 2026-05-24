@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
@@ -39,7 +40,7 @@ fun CompleteScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Du matade sköldpaddan!",
+            text = stringResource(R.string.du_matade_skoldpaddan),
             style = MaterialTheme.typography.displayMedium,
             textAlign = TextAlign.Center
 
@@ -58,8 +59,8 @@ fun CompleteScreen(
         ) {
 
             Text(
-                text = "Du fick $score rätt \n" +
-                        "Du svarade på $answered tal",
+                text = stringResource(R.string.du_fick_antal_ratt, score) +
+                        stringResource(R.string.du_svarade_pa_antal, answered),
                 style = MaterialTheme.typography.displaySmall
             )
 
@@ -71,7 +72,7 @@ fun CompleteScreen(
         Spacer(modifier = Modifier.height(40.dp))
 
         Text(
-            text = "Snyggt kämpat!",
+            text = stringResource(R.string.snyggt_kampat),
             style = MaterialTheme.typography.displayMedium,
             textAlign = TextAlign.Center
         )
@@ -86,7 +87,7 @@ fun CompleteScreen(
             )
         ) {
             Text(
-                text = "Gör igen",
+                text = stringResource(R.string.gor_igen),
                 style = MaterialTheme.typography.headlineMedium
             )
         }
@@ -101,7 +102,7 @@ fun CompleteScreen(
             )
         ) {
             Text(
-                text = "Till start",
+                text = stringResource(R.string.till_start),
                 style = MaterialTheme.typography.headlineMedium
             )
         }

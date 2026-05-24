@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">MathWiz</string>
+    <string name="du_matade_skoldpaddan">Du matade sköldpaddan!</string>
+    <string name="du_fick_antal_ratt">Du fick %1$d rätt \n</string>
+    <string name="du_svarade_pa_antal">Du svarade på %1$d tal</string>
+    <string name="snyggt_kampat">Snyggt kämpat!</string>
+    <string name="gor_igen">Gör igen</string>
+    <string name="till_start">Till start</string>
+    <string name="valj_gangertabell">Välj gångertabell</string>
+    <string name="tabell_nummer">%1$d:an</string>
+    <string name="blanda_alla">Blanda alla</string>
+    <string name="antal_av_10">%1$d av 10</string>
 </resources>

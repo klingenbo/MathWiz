@@ -37,6 +37,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
@@ -121,7 +122,7 @@ fun GameScreen(
         )
 
         Text(
-            text = "$score av 10",
+            text = stringResource(R.string.antal_av_10, score),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(0.dp, 10.dp, 0.dp, 60.dp),

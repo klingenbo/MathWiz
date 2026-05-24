@@ -27,6 +27,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
@@ -46,7 +47,7 @@ fun StartScreen(onStart: (GameConfig) -> Unit) {
         verticalArrangement = Arrangement.Center,
     ) {
         Text(
-            text = "Välj gångertabell",
+            text = stringResource(R.string.valj_gangertabell),
             modifier = Modifier
                 .fillMaxWidth(),
             textAlign = TextAlign.Center,
@@ -130,7 +131,7 @@ fun TableButton(
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "$table:an",
+            text = stringResource(R.string.tabell_nummer, table),
             style = MaterialTheme.typography.headlineMedium
         )
     }
@@ -190,7 +191,7 @@ fun AllTablesButton(
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "Blanda alla",
+            text = stringResource(R.string.blanda_alla),
             style = MaterialTheme.typography.headlineMedium
         )
     }
