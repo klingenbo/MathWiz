@@ -74,11 +74,13 @@ class GameViewModel(
         viewModelScope.launch {
             if (questionsAnswered.value == 10) {
 
-                isCompleted.value = true
-
                 if (_score.value > _highScore.value) {
                     repository.saveHighScore(_score.value)
                 }
+
+                delay(500)
+
+                isCompleted.value = true
 
                 return@launch
             } else {
