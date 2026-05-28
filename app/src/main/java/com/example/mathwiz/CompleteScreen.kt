@@ -28,10 +28,10 @@ fun CompleteScreen(
     score: Int,
     answered: Int,
     table: Int?,
+    highScore: Int,
     openStart: () -> Unit,
     playAgain: () -> Unit
 ) {
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -40,7 +40,7 @@ fun CompleteScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = stringResource(R.string.du_matade_skoldpaddan),
+            text = "Gångertabell $table",
             style = MaterialTheme.typography.displayMedium,
             textAlign = TextAlign.Center
 
@@ -57,16 +57,15 @@ fun CompleteScreen(
                 .padding(24.dp),
             contentAlignment = Alignment.Center
         ) {
+            Spacer(modifier = Modifier.height(40.dp))
 
             Text(
-                text = stringResource(R.string.du_fick_antal_ratt, score) +
-                        stringResource(R.string.du_svarade_pa_antal, answered),
+                text = "Du fick $score/$answered" +
+                        "\n\nDitt bästa resultat = $highScore/$answered",
                 style = MaterialTheme.typography.displaySmall
             )
 
-            Spacer(modifier = Modifier.height(80.dp))
-
-
+            Spacer(modifier = Modifier.height(50.dp))
         }
 
         Spacer(modifier = Modifier.height(40.dp))

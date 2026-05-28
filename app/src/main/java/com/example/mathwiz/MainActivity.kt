@@ -7,8 +7,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.compose.ui.platform.WindowRecomposerPolicy
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -43,6 +41,7 @@ class MainActivity : ComponentActivity() {
 
                         val score by viewModel.score.collectAsState()
                         val answered by viewModel.questionsAnswered.collectAsState()
+                        val highScore by viewModel.highScore.collectAsState()
 
                         LaunchedEffect(table) {
                             viewModel.setConfig(GameConfig(table))
@@ -53,20 +52,23 @@ class MainActivity : ComponentActivity() {
                             table?.toIntOrNull(),
                             onGameComplete = {
                                 navController.navigate(
-                                    "complete/$score/$answered/$tableArg"
+                                    "complete/$score/$answered/$tableArg/$highScore"
                                 )
                             })
                     }
 
-                    composable("complete/{score}/{answered}/{table}") { backStackEntry ->
+                    composable("complete/{score}/{answered}/{table}/{highScore}") { backStackEntry ->
                         val table = backStackEntry.arguments?.getString("table")
                         val score = backStackEntry.arguments?.getString("score")?.toInt() ?: 0
                         val answered = backStackEntry.arguments?.getString("answered")?.toInt() ?: 0
+                        val highScore =
+                            backStackEntry.arguments?.getString("highScore")?.toIntOrNull() ?: 0
 
                         CompleteScreen(
                             score = score,
                             answered = answered,
                             table = table?.toIntOrNull(),
+                            highScore = highScore,
                             openStart = {
                                 navController.navigate("start")
                             },
