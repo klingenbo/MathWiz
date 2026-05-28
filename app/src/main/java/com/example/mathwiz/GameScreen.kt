@@ -54,7 +54,6 @@ fun GameScreen(
     val progress by viewModel.progress.collectAsState()
     val isCompleted by viewModel.isCompleted.collectAsState()
     var selectedAnswer by remember { mutableStateOf<Int?>(null) }
-    var bounce by remember { mutableStateOf(false) }
 
     val color = getColorForTable(table)
 
@@ -65,9 +64,7 @@ fun GameScreen(
     // Fix bounce
     LaunchedEffect(progress) {
         if (progress >= 0.99f) {
-            bounce = true
             delay(150)
-            bounce = false
         }
     }
 
@@ -117,7 +114,6 @@ fun GameScreen(
 
         TurtleEating(
             progress = progress,
-            bounce = bounce,
             score = score
         )
 
@@ -169,7 +165,6 @@ fun AnswerButton(
 @Composable
 fun TurtleEating(
     progress: Float,
-    bounce: Boolean,
     score: Int
 ) {
 
@@ -185,11 +180,6 @@ fun TurtleEating(
         } else {
             lerp(startOffset, endOffset, animatedProgress)
         },
-        label = ""
-    )
-
-    val scale by animateFloatAsState(
-        targetValue = if (bounce) 1.3f else 1f,
         label = ""
     )
 
@@ -223,10 +213,6 @@ fun TurtleEating(
                 contentDescription = "Turtle",
                 modifier = Modifier
                     .offset(x = offsetX)
-                    .graphicsLayer {
-                        scaleX = scale
-                        scaleY = scale
-                    }
             )
         }
     }
