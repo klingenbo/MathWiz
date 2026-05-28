@@ -2,7 +2,6 @@
     <string name="app_name">MathWiz</string>
     <string name="choose_a_table">Choose a table</string>
     <string name="shuffle_all">Shuffle all</string>
-    <string name="of_10">%1$d of 10</string>
     <string name="home_page">Home page</string>
     <string name="play_again">Play again</string>
     <string name="good_job">Good job!</string>
