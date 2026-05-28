@@ -122,7 +122,7 @@ fun GameScreen(
         )
 
         Text(
-            text = stringResource(R.string.antal_av_10, score),
+            text = stringResource(R.string.of_10, score),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(0.dp, 10.dp, 0.dp, 60.dp),

@@ -40,7 +40,10 @@ fun CompleteScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Gångertabell $table",
+            text = stringResource(
+                R.string.table_completed,
+                table ?: "Shuffled"
+            ),
             style = MaterialTheme.typography.displayMedium,
             textAlign = TextAlign.Center
 
@@ -60,8 +63,8 @@ fun CompleteScreen(
             Spacer(modifier = Modifier.height(40.dp))
 
             Text(
-                text = "Du fick $score/$answered" +
-                        "\n\nDitt bästa resultat = $highScore/$answered",
+                text = stringResource(R.string.you_scored_result, score, answered) +
+                        stringResource(R.string.your_previous_highscore, highScore, answered),
                 style = MaterialTheme.typography.displaySmall
             )
 
@@ -71,7 +74,7 @@ fun CompleteScreen(
         Spacer(modifier = Modifier.height(40.dp))
 
         Text(
-            text = stringResource(R.string.snyggt_kampat),
+            text = stringResource(R.string.good_job),
             style = MaterialTheme.typography.displayMedium,
             textAlign = TextAlign.Center
         )
@@ -86,7 +89,7 @@ fun CompleteScreen(
             )
         ) {
             Text(
-                text = stringResource(R.string.gor_igen),
+                text = stringResource(R.string.play_again),
                 style = MaterialTheme.typography.headlineMedium
             )
         }
@@ -101,7 +104,7 @@ fun CompleteScreen(
             )
         ) {
             Text(
-                text = stringResource(R.string.till_start),
+                text = stringResource(R.string.home_page),
                 style = MaterialTheme.typography.headlineMedium
             )
         }

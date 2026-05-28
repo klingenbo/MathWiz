@@ -47,7 +47,7 @@ fun StartScreen(onStart: (GameConfig) -> Unit) {
         verticalArrangement = Arrangement.Center,
     ) {
         Text(
-            text = stringResource(R.string.valj_gangertabell),
+            text = stringResource(R.string.choose_a_table),
             modifier = Modifier
                 .fillMaxWidth(),
             textAlign = TextAlign.Center,
@@ -131,7 +131,7 @@ fun TableButton(
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = stringResource(R.string.tabell_nummer, table),
+            text = "$table",
             style = MaterialTheme.typography.headlineMedium
         )
     }
@@ -191,7 +191,7 @@ fun AllTablesButton(
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = stringResource(R.string.blanda_alla),
+            text = stringResource(R.string.shuffle_all),
             style = MaterialTheme.typography.headlineMedium
         )
     }
