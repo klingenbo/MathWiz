@@ -1,6 +1,7 @@
 package com.example.mathwiz
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,20 +17,35 @@ data class Question(
     val options: List<Int>
 )
 
-class GameViewModel : ViewModel() {
+class GameViewModel(
+    application: Application
+) : AndroidViewModel(application) {
 
     private var table: String? = null
-
-    fun setConfig(config: GameConfig) {
-        table = config.table
-        _question.value = generateQuestion()
-    }
 
     private val _question = MutableStateFlow(generateQuestion())
     val question = _question
 
     private val _score = MutableStateFlow(0)
     val score = _score
+
+    private val repository = SavedHighScoreRepository(getApplication())
+
+    private val _highScore = MutableStateFlow(0)
+    val highScore = _highScore
+
+    init {
+        viewModelScope.launch {
+            repository.getHighScore().collect {
+                _highScore.value = it
+            }
+        }
+    }
+
+    fun setConfig(config: GameConfig) {
+        table = config.table
+        _question.value = generateQuestion()
+    }
 
     val progress = _score.map { score ->
         (score % 10) / 10f
@@ -56,8 +72,14 @@ class GameViewModel : ViewModel() {
         questionsAnswered.value += 1
 
         viewModelScope.launch {
-            if (_score.value == 10) {
+            if (questionsAnswered.value == 10) {
+
                 isCompleted.value = true
+
+                if (_score.value > _highScore.value) {
+                    repository.saveHighScore(_score.value)
+                }
+
                 return@launch
             } else {
                 delay(1000)
