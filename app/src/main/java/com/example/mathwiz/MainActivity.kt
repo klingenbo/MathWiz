@@ -54,6 +54,11 @@ class MainActivity : ComponentActivity() {
                                 navController.navigate(
                                     "complete/$score/$answered/$tableArg/$highScore"
                                 )
+                            },
+                            onBackClicked = {
+                                navController.navigate(
+                                    "start"
+                                )
                             })
                     }
 
