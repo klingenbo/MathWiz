@@ -175,8 +175,8 @@ fun TurtleEating(
 
     val animatedProgress by animateFloatAsState(progress, label = "")
 
-    val startOffset = 90.dp
-    val endOffset = (-50).dp
+    val startOffset = 120.dp
+    val endOffset = (-25).dp
     val isFinished = score >= 10
 
     val offsetX by animateDpAsState(
@@ -196,7 +196,7 @@ fun TurtleEating(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(70.dp, 20.dp, 30.dp, 0.dp),
+            .padding(50.dp, 20.dp, 30.dp, 0.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
 
@@ -208,19 +208,26 @@ fun TurtleEating(
             Image(
                 // Attribution is required for commercial use
                 painter = painterResource(R.drawable.leaf),
-                contentDescription = null
+                contentDescription = "Leaf"
             )
         }
 
-        Text(
-            text = "🐢",
-            style = MaterialTheme.typography.displayLarge,
+        Box(
             modifier = Modifier
-                .offset(x = offsetX)
-                .graphicsLayer {
-                    scaleX = scale
-                    scaleY = scale
-                }
-        )
+                .width(80.dp)
+                .height(90.dp)
+        ) {
+            Image(
+                // Attribution is required for commercial use
+                painter = painterResource(R.drawable.turtle),
+                contentDescription = "Turtle",
+                modifier = Modifier
+                    .offset(x = offsetX)
+                    .graphicsLayer {
+                        scaleX = scale
+                        scaleY = scale
+                    }
+            )
+        }
     }
 }
