@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -34,14 +35,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.TransformOrigin
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
-import kotlinx.coroutines.delay
 
 @Composable
 fun GameScreen(
@@ -73,14 +70,24 @@ fun GameScreen(
             .padding(horizontal = 30.dp, vertical = 20.dp),
         verticalArrangement = Arrangement.Center
     ) {
-        Spacer(modifier = Modifier.height(80.dp))
+        Spacer(modifier = Modifier.height(60.dp))
 
         TurtleEating(
             progress = progress,
             score = score
         )
 
-        Spacer(modifier = Modifier.height(70.dp))
+        Spacer(modifier = Modifier.height(12.dp))
+
+        LinearProgressIndicator(
+            progress = { 1f - progress },
+            color = color,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 75.dp)
+        )
+
+        Spacer(modifier = Modifier.height(80.dp))
 
         Text(
             modifier = Modifier.fillMaxWidth(),
