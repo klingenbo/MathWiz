@@ -2,11 +2,11 @@
     <string name="app_name">MathWiz</string>
     <string name="choose_a_table">Choose a table</string>
     <string name="shuffle_all">Shuffle all</string>
-    <string name="home_page">Home page</string>
-    <string name="play_again">Play again</string>
+    <string name="home">Home</string>
+    <string name="retry">Retry</string>
     <string name="good_job">Good job!</string>
-    <string name="you_scored_result">You scored %1$d/%2$d</string>
-    <string name="your_previous_highscore">\n\nYour previous highscore = %1$d/%2$d</string>
-    <string name="table_completed">Table %1$s</string>
-    <string name="shuffled">Shuffled</string>
+    <string name="you_scored_result">You scored:</string>
+    <string name="your_previous_highscore">Your previous highscore:</string>
+    <string name="high_score_fraction">%1$d/%2$d</string>
+    <string name="result_fraction">%1$d/%2$d</string>
 </resources>
