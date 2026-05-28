@@ -61,13 +61,6 @@ fun GameScreen(
         selectedAnswer = null
     }
 
-    // Fix bounce
-    LaunchedEffect(progress) {
-        if (progress >= 0.99f) {
-            delay(150)
-        }
-    }
-
     LaunchedEffect(isCompleted) {
         if (isCompleted) {
             onGameComplete()
@@ -80,7 +73,14 @@ fun GameScreen(
             .padding(horizontal = 30.dp, vertical = 20.dp),
         verticalArrangement = Arrangement.Center
     ) {
-        Spacer(modifier = Modifier.height(100.dp))
+        Spacer(modifier = Modifier.height(80.dp))
+
+        TurtleEating(
+            progress = progress,
+            score = score
+        )
+
+        Spacer(modifier = Modifier.height(70.dp))
 
         Text(
             modifier = Modifier.fillMaxWidth(),
@@ -111,20 +111,6 @@ fun GameScreen(
                 )
             }
         }
-
-        TurtleEating(
-            progress = progress,
-            score = score
-        )
-
-        Text(
-            text = stringResource(R.string.of_10, score),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(0.dp, 10.dp, 0.dp, 60.dp),
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.headlineMedium,
-        )
     }
 }
 
