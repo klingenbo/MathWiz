@@ -20,9 +20,17 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -40,173 +48,196 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GameScreen(
     viewModel: GameViewModel,
     table: Int?,
     onGameComplete: () -> Unit
 ) {
-    val question by viewModel.question.collectAsState()
-    val score by viewModel.score.collectAsState()
-    val progress by viewModel.progress.collectAsState()
-    val isCompleted by viewModel.isCompleted.collectAsState()
-    var selectedAnswer by remember { mutableStateOf<Int?>(null) }
+    Scaffold(
+        topBar = {
+            CenterAlignedTopAppBar(
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    titleContentColor = MaterialTheme.colorScheme.primary
+                ),
+                title = {
+                    Text("MathWiz")
+                },
+                navigationIcon = {
+                    IconButton(onClick = { }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Go back"
+                        )
+                    }
+                }
+            )
+        },
+    ) { innerPadding ->
 
-    val color = getColorForTable(table)
+        val question by viewModel.question.collectAsState()
+        val score by viewModel.score.collectAsState()
+        val progress by viewModel.progress.collectAsState()
+        val isCompleted by viewModel.isCompleted.collectAsState()
+        var selectedAnswer by remember { mutableStateOf<Int?>(null) }
 
-    LaunchedEffect(question) {
-        selectedAnswer = null
+        val color = getColorForTable(table)
+
+        LaunchedEffect(question) {
+            selectedAnswer = null
+        }
+
+        LaunchedEffect(isCompleted) {
+            if (isCompleted) {
+                onGameComplete()
+            }
+        }
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .padding(horizontal = 30.dp, vertical = 20.dp),
+            verticalArrangement = Arrangement.Center
+        ) {
+            TurtleEating(
+                progress = progress,
+                score = score
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            LinearProgressIndicator(
+                progress = { 1f - progress },
+                color = color,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 75.dp)
+            )
+
+            Spacer(modifier = Modifier.height(50.dp))
+
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                text = "${question.a} × ${question.b}",
+                style = MaterialTheme.typography.displayLarge,
+                textAlign = TextAlign.Center
+            )
+
+            Spacer(modifier = Modifier.height(40.dp))
+
+            LazyColumn(
+                modifier = Modifier.weight(2f),
+            ) {
+                items(question.options) { option ->
+                    AnswerButton(
+                        text = option.toString(),
+                        isCorrect = viewModel.isCorrect(
+                            option = option,
+                            selectedAnswer = selectedAnswer
+                        ),
+                        baseColor = color,
+                        onClick = {
+                            selectedAnswer = option
+                            viewModel.onAnswerSelected(
+                                answer = option,
+                            )
+                        }
+                    )
+                }
+            }
+        }
+    }
     }
 
-    LaunchedEffect(isCompleted) {
-        if (isCompleted) {
-            onGameComplete()
+    @Composable
+    fun AnswerButton(
+        text: String,
+        isCorrect: Boolean?,
+        baseColor: Color,
+        onClick: () -> Unit
+    ) {
+        val bgColor by animateColorAsState(
+            targetValue = when (isCorrect) {
+                true -> Color.Green
+                false -> Color.Red
+                else -> baseColor
+            },
+            label = ""
+        )
+
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(vertical = 8.dp)
+                .shadow(4.dp, RoundedCornerShape(16.dp))
+                .clip(RoundedCornerShape(16.dp))
+                .background(bgColor)
+                .clickable { onClick() }
+                .padding(24.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = text,
+                style = MaterialTheme.typography.headlineMedium
+            )
         }
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 30.dp, vertical = 20.dp),
-        verticalArrangement = Arrangement.Center
+    @Composable
+    fun TurtleEating(
+        progress: Float,
+        score: Int
     ) {
-        Spacer(modifier = Modifier.height(60.dp))
 
-        TurtleEating(
-            progress = progress,
-            score = score
+        val animatedProgress by animateFloatAsState(progress, label = "")
+
+        val startOffset = 120.dp
+        val endOffset = (-25).dp
+        val isFinished = score >= 10
+
+        val offsetX by animateDpAsState(
+            targetValue = if (isFinished) {
+                endOffset
+            } else {
+                lerp(startOffset, endOffset, animatedProgress)
+            },
+            label = ""
         )
 
-        Spacer(modifier = Modifier.height(12.dp))
-
-        LinearProgressIndicator(
-            progress = { 1f - progress },
-            color = color,
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 75.dp)
-        )
-
-        Spacer(modifier = Modifier.height(80.dp))
-
-        Text(
-            modifier = Modifier.fillMaxWidth(),
-            text = "${question.a} × ${question.b}",
-            style = MaterialTheme.typography.displayLarge,
-            textAlign = TextAlign.Center
-        )
-
-        Spacer(modifier = Modifier.height(50.dp))
-
-        LazyColumn(
-            modifier = Modifier.weight(2f),
+                .padding(50.dp, 20.dp, 30.dp, 0.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            items(question.options) { option ->
-                AnswerButton(
-                    text = option.toString(),
-                    isCorrect = viewModel.isCorrect(
-                        option = option,
-                        selectedAnswer = selectedAnswer
-                    ),
-                    baseColor = color,
-                    onClick = {
-                        selectedAnswer = option
-                        viewModel.onAnswerSelected(
-                            answer = option,
-                        )
-                    }
+
+            Box(
+                modifier = Modifier
+                    .width(80.dp)
+                    .height(60.dp)
+            ) {
+                Image(
+                    // Attribution is required for commercial use
+                    painter = painterResource(R.drawable.leaf),
+                    contentDescription = "Leaf"
+                )
+            }
+
+            Box(
+                modifier = Modifier
+                    .width(80.dp)
+                    .height(90.dp)
+            ) {
+                Image(
+                    // Attribution is required for commercial use
+                    painter = painterResource(R.drawable.turtle),
+                    contentDescription = "Turtle",
+                    modifier = Modifier
+                        .offset(x = offsetX)
                 )
             }
         }
     }
-}
-
-@Composable
-fun AnswerButton(
-    text: String,
-    isCorrect: Boolean?,
-    baseColor: Color,
-    onClick: () -> Unit
-) {
-    val bgColor by animateColorAsState(
-        targetValue = when (isCorrect) {
-            true -> Color.Green
-            false -> Color.Red
-            else -> baseColor
-        },
-        label = ""
-    )
-
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(vertical = 8.dp)
-            .shadow(4.dp, RoundedCornerShape(16.dp))
-            .clip(RoundedCornerShape(16.dp))
-            .background(bgColor)
-            .clickable { onClick() }
-            .padding(24.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(
-            text = text,
-            style = MaterialTheme.typography.headlineMedium
-        )
-    }
-}
-
-@Composable
-fun TurtleEating(
-    progress: Float,
-    score: Int
-) {
-
-    val animatedProgress by animateFloatAsState(progress, label = "")
-
-    val startOffset = 120.dp
-    val endOffset = (-25).dp
-    val isFinished = score >= 10
-
-    val offsetX by animateDpAsState(
-        targetValue = if (isFinished) {
-            endOffset
-        } else {
-            lerp(startOffset, endOffset, animatedProgress)
-        },
-        label = ""
-    )
-
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(50.dp, 20.dp, 30.dp, 0.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-
-        Box(
-            modifier = Modifier
-                .width(80.dp)
-                .height(60.dp)
-        ) {
-            Image(
-                // Attribution is required for commercial use
-                painter = painterResource(R.drawable.leaf),
-                contentDescription = "Leaf"
-            )
-        }
-
-        Box(
-            modifier = Modifier
-                .width(80.dp)
-                .height(90.dp)
-        ) {
-            Image(
-                // Attribution is required for commercial use
-                painter = painterResource(R.drawable.turtle),
-                contentDescription = "Turtle",
-                modifier = Modifier
-                    .offset(x = offsetX)
-            )
-        }
-    }
-}
