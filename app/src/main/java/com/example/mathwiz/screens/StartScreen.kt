@@ -1,4 +1,4 @@
-package com.example.mathwiz
+package com.example.mathwiz.screens
 
 import androidx.compose.foundation.clickable
 import androidx.compose.animation.core.animateFloatAsState
@@ -30,6 +30,8 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.example.mathwiz.GameConfig
+import com.example.mathwiz.R
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

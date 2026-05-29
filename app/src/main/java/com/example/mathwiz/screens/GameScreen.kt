@@ -1,4 +1,4 @@
-package com.example.mathwiz
+package com.example.mathwiz.screens
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
@@ -47,6 +47,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
+import com.example.mathwiz.GameViewModel
+import com.example.mathwiz.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

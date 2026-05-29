@@ -1,4 +1,4 @@
-package com.example.mathwiz
+package com.example.mathwiz.datastore
 
 import android.content.Context
 import androidx.datastore.preferences.core.edit
