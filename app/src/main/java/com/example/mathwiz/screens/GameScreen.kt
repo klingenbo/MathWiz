@@ -30,6 +30,7 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -50,6 +51,7 @@ import androidx.compose.ui.unit.lerp
 import com.example.mathwiz.GameViewModel
 import com.example.mathwiz.R
 import com.example.mathwiz.components.AnswerButton
+import com.example.mathwiz.components.TopBar
 import com.example.mathwiz.components.TurtleEating
 import com.example.mathwiz.ui.theme.getColorForTable
 
@@ -63,22 +65,9 @@ fun GameScreen(
 ) {
     Scaffold(
         topBar = {
-            CenterAlignedTopAppBar(
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.primary
-                ),
-                title = {
-                    Text("MathWiz")
-                },
-                navigationIcon = {
-                    IconButton(onClick = onBackClicked) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Go back"
-                        )
-                    }
-                }
+            TopBar(
+                title = "MathWiz",
+                onBack = onBackClicked
             )
         },
     ) { innerPadding ->
