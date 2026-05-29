@@ -66,7 +66,6 @@ fun GameScreen(
     Scaffold(
         topBar = {
             TopBar(
-                title = "MathWiz",
                 onBack = onBackClicked
             )
         },

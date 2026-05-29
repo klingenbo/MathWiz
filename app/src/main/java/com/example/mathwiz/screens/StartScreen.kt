@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -34,6 +35,7 @@ import com.example.mathwiz.GameConfig
 import com.example.mathwiz.R
 import com.example.mathwiz.components.AllTablesButton
 import com.example.mathwiz.components.TableButton
+import com.example.mathwiz.components.TopBar
 import com.example.mathwiz.ui.theme.getColorForTable
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -41,59 +43,67 @@ import kotlinx.coroutines.launch
 @Composable
 fun StartScreen(onStart: (GameConfig) -> Unit) {
 
-    val tables = listOf(
-        1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-    )
+    Scaffold(
+        topBar = {
+            TopBar()
+        },
+    ) { innerPadding ->
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(20.dp, 60.dp, 20.dp, 30.dp),
-        verticalArrangement = Arrangement.Center,
-    ) {
-        Text(
-            text = stringResource(R.string.choose_a_table),
-            modifier = Modifier
-                .fillMaxWidth(),
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.displayMedium
+        val tables = listOf(
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10
         )
 
-        Spacer(modifier = Modifier.height(60.dp))
-
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
+        Column(
             modifier = Modifier
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+                .fillMaxSize()
+                .padding(innerPadding)
+                .padding(20.dp, 30.dp, 20.dp, 30.dp),
+            verticalArrangement = Arrangement.Center,
         ) {
-            items(tables) { table ->
-                val color = getColorForTable(table)
+            Text(
+                text = stringResource(R.string.choose_a_table),
+                modifier = Modifier
+                    .fillMaxWidth(),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.displayMedium
+            )
 
-                TableButton(
-                    table = table,
+            Spacer(modifier = Modifier.height(40.dp))
+
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                items(tables) { table ->
+                    val color = getColorForTable(table)
+
+                    TableButton(
+                        table = table,
+                        color = color,
+                        onClick = { onStart(GameConfig(table.toString())) }
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(30.dp))
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(60.dp, 0.dp),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                val color = getColorForTable(11)
+                val table = null
+
+                AllTablesButton(
                     color = color,
                     onClick = { onStart(GameConfig(table.toString())) }
                 )
             }
-        }
-
-        Spacer(modifier = Modifier.height(60.dp))
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(60.dp, 0.dp),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            val color = getColorForTable(11)
-            val table = null
-
-            AllTablesButton(
-                color = color,
-                onClick = { onStart(GameConfig(table.toString())) }
-            )
         }
     }
 }
