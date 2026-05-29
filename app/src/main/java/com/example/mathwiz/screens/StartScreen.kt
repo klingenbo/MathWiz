@@ -32,6 +32,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.mathwiz.GameConfig
 import com.example.mathwiz.R
+import com.example.mathwiz.components.AllTablesButton
+import com.example.mathwiz.components.TableButton
+import com.example.mathwiz.ui.theme.getColorForTable
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -92,109 +95,5 @@ fun StartScreen(onStart: (GameConfig) -> Unit) {
                 onClick = { onStart(GameConfig(table.toString())) }
             )
         }
-    }
-}
-
-@Composable
-fun TableButton(
-    table: Int,
-    color: Color,
-    onClick: () -> Unit
-) {
-    var pressed by remember { mutableStateOf(false) }
-
-    val scale by animateFloatAsState(
-        targetValue = if (pressed) 0.85f else 1f,
-        label = ""
-    )
-
-    val scope = rememberCoroutineScope()
-
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .shadow(6.dp, RoundedCornerShape(16.dp))
-            .clip(RoundedCornerShape(16.dp))
-            .background(color)
-            .graphicsLayer {
-                scaleX = scale
-                scaleY = scale
-            }
-            .clickable {
-                scope.launch {
-                    pressed = true
-                    delay(100)
-                    pressed = false
-                    delay(80)
-                    onClick()
-                }
-            }
-            .padding(24.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(
-            text = "$table",
-            style = MaterialTheme.typography.headlineMedium
-        )
-    }
-}
-
-fun getColorForTable(table: Int?): Color {
-    return when (table) {
-        1 -> Color(0xFFEF9A9A)
-        2 -> Color(0xFF90CAF9)
-        3 -> Color(0xFFA5D6A7)
-        4 -> Color(0xFFFFCC80)
-        5 -> Color(0xFFCE93D8)
-        6 -> Color(0xFF80CBC4)
-        7 -> Color(0xFFFFAB91)
-        8 -> Color(0xFFB39DDB)
-        9 -> Color(0xFFFFF59D)
-        10 -> Color(0xFFB0BEC5)
-        else -> Color(0xFFFFB74D)
-    }
-}
-
-@Composable
-fun AllTablesButton(
-    color: Color,
-    onClick: () -> Unit
-) {
-    var pressed by remember { mutableStateOf(false) }
-
-    val scale by animateFloatAsState(
-        targetValue = if (pressed) 0.85f else 1f,
-        label = ""
-    )
-
-    val scope = rememberCoroutineScope()
-
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .shadow(6.dp, RoundedCornerShape(16.dp))
-            .clip(RoundedCornerShape(16.dp))
-            .background(color)
-            .graphicsLayer {
-                scaleX = scale
-                scaleY = scale
-            }
-            .clickable {
-                scope.launch {
-                    pressed = true
-                    delay(100)
-                    pressed = false
-                    delay(80)
-                    onClick()
-                }
-
-            }
-            .padding(24.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(
-            text = stringResource(R.string.shuffle_all),
-            style = MaterialTheme.typography.headlineMedium
-        )
     }
 }

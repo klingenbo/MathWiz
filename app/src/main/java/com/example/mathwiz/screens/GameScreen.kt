@@ -49,6 +49,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import com.example.mathwiz.GameViewModel
 import com.example.mathwiz.R
+import com.example.mathwiz.components.AnswerButton
+import com.example.mathwiz.components.TurtleEating
+import com.example.mathwiz.ui.theme.getColorForTable
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -151,96 +154,6 @@ fun GameScreen(
                     )
                 }
             }
-        }
-    }
-}
-
-@Composable
-fun AnswerButton(
-    text: String,
-    isCorrect: Boolean?,
-    baseColor: Color,
-    onClick: () -> Unit
-) {
-    val bgColor by animateColorAsState(
-        targetValue = when (isCorrect) {
-            true -> Color.Green
-            false -> Color.Red
-            else -> baseColor
-        },
-        label = ""
-    )
-
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(vertical = 8.dp)
-            .shadow(4.dp, RoundedCornerShape(16.dp))
-            .clip(RoundedCornerShape(16.dp))
-            .background(bgColor)
-            .clickable { onClick() }
-            .padding(24.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(
-            text = text,
-            style = MaterialTheme.typography.headlineMedium
-        )
-    }
-}
-
-@Composable
-fun TurtleEating(
-    progress: Float,
-    score: Int
-) {
-
-    val animatedProgress by animateFloatAsState(progress, label = "")
-
-    val startOffset = 120.dp
-    val endOffset = (-25).dp
-    val isFinished = score >= 10
-
-    val offsetX by animateDpAsState(
-        targetValue = if (isFinished) {
-            endOffset
-        } else {
-            lerp(startOffset, endOffset, animatedProgress)
-        },
-        label = ""
-    )
-
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(50.dp, 20.dp, 30.dp, 0.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-
-        Box(
-            modifier = Modifier
-                .width(80.dp)
-                .height(60.dp)
-        ) {
-            Image(
-                // Attribution is required for commercial use
-                painter = painterResource(R.drawable.leaf),
-                contentDescription = "Leaf"
-            )
-        }
-
-        Box(
-            modifier = Modifier
-                .width(80.dp)
-                .height(90.dp)
-        ) {
-            Image(
-                // Attribution is required for commercial use
-                painter = painterResource(R.drawable.turtle),
-                contentDescription = "Turtle",
-                modifier = Modifier
-                    .offset(x = offsetX)
-            )
         }
     }
 }
