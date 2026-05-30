@@ -25,9 +25,9 @@ Complete the challenge and view your score and high score.
 
 
 Screenshots
-<img alt="Home Screen.png" src="../../Desktop/Android%20projects/Home%20Screen.png" width="250"/>
-<img alt="Game Screen.png" src="../../Desktop/Android%20projects/Game%20Screen.png" width="250"/>
-<img alt="Complete Screen.png" src="../../Desktop/Android%20projects/Complete%20Screen.png" width="250"/>
+<img width="250" height="500" alt="Home Screen" src="https://github.com/user-attachments/assets/0a79bb79-0cc9-4772-8215-9157286b398c" />
+<img width="250" height="500" alt="Game Screen" src="https://github.com/user-attachments/assets/befde115-483e-4259-8444-8caecefcbc9b" />
+<img width="250" height="500" alt="Complete Screen" src="https://github.com/user-attachments/assets/d1c3b2fd-1ab9-4614-b12d-c0e4207f0644" />
 
 
 Tech Stack
