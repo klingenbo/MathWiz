@@ -1,78 +1,119 @@
-# MathWiz
-Fun Android app for practicing multiplication tables with game mechanics.
+# MathWiz 🐢
 
-MathWiz – Learn Multiplication Through Play
+MathWiz is a simple Android game designed to help children practice multiplication tables in a fun and engaging way.
 
-A simple Android game designed to help children practice multiplication tables in a fun and engaging way.
+Players answer multiplication questions, earn points, and help feed a turtle by selecting the correct answers.
 
-The player answers multiplication questions, earns points, and feeds a turtle by selecting the correct answers.
+---
 
-  Features
-Practice specific multiplication tables (1–10) or all combined
-Multiple-choice answers
-Score tracking
-Visual feedback for correct/incorrect answers
-Animated progress system (feeding a turtle)
-Smooth UI built with Jetpack Compose
+## Features
 
-  How it works
-The player selects a multiplication table from the start screen
-A question is generated with 4 possible answers
-The player selects an answer:
-- Correct → score increases
-- Incorrect → feedback is shown
-The game continues with new questions
-Progress is visualized through a feeding mechanic (turtle eating a leaf)
+- Practice individual multiplication tables (1–10)
+- Play with all multiplication tables combined
+- Multiple-choice answers
+- Visual feedback for correct and incorrect answers
+- Animated turtle feeding mechanic
+- Progress indicator
+- High score saved locally using DataStore
+- Clean UI built with Jetpack Compose
 
+---
 
-  Tech Stack
-Kotlin
-Jetpack Compose
-ViewModel
-StateFlow
-Coroutines
+## How It Works
 
-  Architecture
+1. Select a multiplication table from the start screen.
+2. Answer multiplication questions by choosing one of four possible answers.
+3. Earn points for correct answers.
+4. Feed the turtle as you progress through the game.
+5. Complete the challenge and view your score and high score.
 
-The app follows a simple modern Android architecture:
+---
 
-ViewModel
-Handles game logic
-Generates questions
-Manages score and state
-Uses viewModelScope for asynchronous operations
-UI (Compose)
-Displays state from ViewModel
-Reacts automatically to state changes
-Handles user interactions
-State Management
-StateFlow for observable data
-collectAsState() in UI
-Local UI state using remember
+## Screenshots
 
-  What I learned
-Building UI using Jetpack Compose
-Managing state in a reactive way
-Difference between UI state and ViewModel state
-Using StateFlow and collectAsState
-Handling user interaction and recomposition
-Working with coroutines and lifecycle-aware scopes
-Structuring a scalable Android app
+### Start Screen
+<img width="1440" height="3120" alt="Home Screen" src="https://github.com/user-attachments/assets/17344e5e-948e-484a-b46f-0aa75438f0fe" />
 
-  Future Improvements
-Animations for the turtle (eating, reacting)
-Sound effects for feedback
-Difficulty levels / progression system
-Timer-based challenges
-Better visual design and theming per table
-Saving progress locally (DataStore)
+### Game Screen
+<img width="1440" height="3120" alt="Game Screen" src="https://github.com/user-attachments/assets/22f1c908-9add-4e90-8891-ee6298de8462" />
 
-  Screenshots
+### Complete Screen
+<img width="1440" height="3120" alt="Complete Screen" src="https://github.com/user-attachments/assets/b45adf22-0e97-4f04-b1f5-a0692aeea60f" />
 
------
+---
 
-  Motivation
+## Tech Stack
 
-This project was built to explore modern Android development with Jetpack Compose and to create something interactive and meaningful.
+- Kotlin
+- Jetpack Compose
+- Material 3
+- ViewModel
+- StateFlow
+- Coroutines
+- Navigation Compose
+- DataStore
 
-The goal is to make learning math feel more like playing a game.
+---
+
+## Architecture
+
+The app follows a simple modern Android architecture.
+
+### ViewModel
+
+Responsible for:
+
+- Generating multiplication questions
+- Managing game state
+- Tracking score and progress
+- Handling game completion
+- Saving and loading high scores
+
+### UI (Jetpack Compose)
+
+Responsible for:
+
+- Displaying state from the ViewModel
+- Reacting automatically to state changes
+- Handling user interactions
+- Showing animations and visual feedback
+
+### State Management
+
+- StateFlow for observable state
+- collectAsState() for Compose integration
+- remember for local UI state
+
+---
+
+## What I Learned
+
+Through this project I practiced:
+
+- Building Android UIs with Jetpack Compose
+- State management using StateFlow
+- ViewModel architecture
+- Coroutines and asynchronous operations
+- Navigation with Navigation Compose
+- Persisting data with DataStore
+- Refactoring reusable UI components
+- Managing recomposition and reactive UI updates
+
+---
+
+## Future Improvements
+
+- More turtle animations and reactions
+- Sound effects
+- Difficulty levels
+- Timed game modes
+- Statistics and achievements
+- Per-table high score tracking
+
+---
+
+## Motivation
+
+This project was created to explore modern Android development with Jetpack Compose while building something interactive and educational.
+
+The goal was to make learning multiplication feel more like playing a game.
