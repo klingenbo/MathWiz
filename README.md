@@ -5,7 +5,8 @@ MathWiz is a simple Android game designed to help children practice multiplicati
 Players answer multiplication questions, earn points, and help feed a turtle by selecting the correct answers.
 
 
-Features
+Features:
+
 Practice individual multiplication tables (1–10)
 Play with all multiplication tables combined
 Multiple-choice answers
@@ -16,7 +17,8 @@ High score saved locally using DataStore
 Clean UI built with Jetpack Compose
 
 
-How It Works
+How It Works:
+
 Select a multiplication table from the start screen.
 Answer multiplication questions by choosing one of four possible answers.
 Earn points for correct answers.
@@ -25,12 +27,14 @@ Complete the challenge and view your score and high score.
 
 
 Screenshots
+
 <img width="250" height="500" alt="Home Screen" src="https://github.com/user-attachments/assets/0a79bb79-0cc9-4772-8215-9157286b398c" />
 <img width="250" height="500" alt="Game Screen" src="https://github.com/user-attachments/assets/befde115-483e-4259-8444-8caecefcbc9b" />
 <img width="250" height="500" alt="Complete Screen" src="https://github.com/user-attachments/assets/d1c3b2fd-1ab9-4614-b12d-c0e4207f0644" />
 
 
-Tech Stack
+Tech Stack:
+
 Kotlin
 Jetpack Compose
 Material 3
@@ -41,7 +45,8 @@ Navigation Compose
 DataStore
 
 
-Architecture
+Architecture:
+
 The app follows a simple modern Android architecture.
 
 
@@ -81,7 +86,7 @@ Refactoring reusable UI components
 Managing recomposition and reactive UI updates
 
 
-Future Improvements
+Future Improvements:
 More turtle animations and reactions
 Sound effects
 Difficulty levels
@@ -90,7 +95,7 @@ Statistics and achievements
 Per-table high score tracking
 
 
-Motivation
+Motivation:
 This project was created to explore modern Android development with Jetpack Compose while building something interactive and educational.
 
 The goal was to make learning multiplication feel more like playing a game.
